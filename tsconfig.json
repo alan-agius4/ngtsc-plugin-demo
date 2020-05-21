@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "rootDir": ".",
+    "declaration": true,
+    "target": "ES2015",
+    "module": "ES2015",
+    "moduleResolution": "node",
+    "experimentalDecorators": true,
+    "incremental": true,
+    "outDir": "./dist",
+    "pretty": true,
+  },
+  "include": [
+    "src/**/*.ts"
+  ]
+}

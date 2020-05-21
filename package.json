@@ -1,0 +1,15 @@
+{
+  "scripts": {
+    "build": "ts-node --project tsconfig.build.json build.ts",
+    "postinstall": "ngcc --first-only"
+  },
+  "devDependencies": {
+    "@angular/compiler": "^10.0.0-next.9",
+    "@angular/compiler-cli": "^10.0.0-next.9",
+    "@angular/core": "^10.0.0-next.9",
+    "@types/node": "^14.0.4",
+    "ts-node": "^8.10.1",
+    "tslib": "^2.0.0",
+    "typescript": "^3.9.3"
+  }
+}
