@@ -6,7 +6,7 @@
         "rootDir": "."
     },
     "include": [
-        "public_api.ts",
+        "public-api.ts",
         "src/**/*.ts"
     ],
 }

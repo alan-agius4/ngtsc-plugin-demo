@@ -9,7 +9,7 @@ let FooBaxComponent = /** @class */ (() => {
     FooBaxComponent.ɵfac = function FooBaxComponent_Factory(t) { return new (t || FooBaxComponent)(); };
     FooBaxComponent.ɵcmp = i0.ɵɵdefineComponent({ type: FooBaxComponent, selectors: [["lib-foo-bax"]], decls: 2, vars: 0, template: function FooBaxComponent_Template(rf, ctx) { if (rf & 1) {
             i0.ɵɵelementStart(0, "p");
-            i0.ɵɵtext(1, " foo-bax works! ");
+            i0.ɵɵtext(1, " foo-bax testing works! ");
             i0.ɵɵelementEnd();
         } }, encapsulation: 2 });
     return FooBaxComponent;
@@ -21,7 +21,7 @@ export { FooBaxComponent };
                 selector: 'lib-foo-bax',
                 template: `
     <p>
-      foo-bax works!
+      foo-bax testing works!
     </p>
   `,
                 styles: []

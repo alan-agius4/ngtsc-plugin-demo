@@ -12,5 +12,6 @@
         "noImplicitReturns": true,
         "noFallthroughCasesInSwitch": true,
         "composite": true,
+        "incremental": true,
     }
 }

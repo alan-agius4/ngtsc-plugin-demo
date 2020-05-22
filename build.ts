@@ -107,7 +107,6 @@ function createProgram(
       ...getSyntacticDiagnostics(sf, token),
       ...ngtsc.getDiagnostics(sf)
     ]
-    
   }
 
   const emit = program.emit;

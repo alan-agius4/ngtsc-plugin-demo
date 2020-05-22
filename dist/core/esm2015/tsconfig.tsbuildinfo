@@ -221,13 +221,26 @@
         "signature": "d96fa8a56871904776165ceb8e00bd56127e1a017bb2664cae76223b5f815141",
         "affectsGlobalScope": false
       },
-      "../../../lib/src/foo-bax.component.ngtypecheck.ts": {
+      "../../../lib/public-api.ngtypecheck.ts": {
+        "version": "ddd578018a259d1c494c834bdd8707769d07d1eb64f87f5217560cd2181b9e93",
+        "affectsGlobalScope": false
+      },
+      "../../../lib/src/foo-bax.service.ngtypecheck.ts": {
         "version": "ddd578018a259d1c494c834bdd8707769d07d1eb64f87f5217560cd2181b9e93",
         "affectsGlobalScope": false
       },
       "../../../node_modules/@angular/core/core.d.ts": {
         "version": "61a320a57d3c4e3c3d1c9ee758b4de7a1d1b86280793610b2d75d18d38315d3b",
         "signature": "61a320a57d3c4e3c3d1c9ee758b4de7a1d1b86280793610b2d75d18d38315d3b",
+        "affectsGlobalScope": false
+      },
+      "../../../lib/src/foo-bax.service.ts": {
+        "version": "c04acef3afffee3d2855e77e70af686bd2814dafebb55d5c0f8386d2ce072901",
+        "signature": "a439940e6bc9aff304991ac74c7335fcb123f24d8f911baa9c13b5a8b2a11703",
+        "affectsGlobalScope": false
+      },
+      "../../../lib/src/foo-bax.component.ngtypecheck.ts": {
+        "version": "ddd578018a259d1c494c834bdd8707769d07d1eb64f87f5217560cd2181b9e93",
         "affectsGlobalScope": false
       },
       "../../../lib/src/foo-bax.component.ts": {
@@ -244,13 +257,9 @@
         "signature": "ace1b1b58d6454a5f7562d1c83d8cb0d1aac459d94a525b4a811754923e64f2e",
         "affectsGlobalScope": false
       },
-      "../../../lib/src/foo-bax.service.ngtypecheck.ts": {
-        "version": "ddd578018a259d1c494c834bdd8707769d07d1eb64f87f5217560cd2181b9e93",
-        "affectsGlobalScope": false
-      },
-      "../../../lib/src/foo-bax.service.ts": {
-        "version": "c04acef3afffee3d2855e77e70af686bd2814dafebb55d5c0f8386d2ce072901",
-        "signature": "a439940e6bc9aff304991ac74c7335fcb123f24d8f911baa9c13b5a8b2a11703",
+      "../../../lib/public-api.ts": {
+        "version": "a86ea5103c864233b70d55e9145931d62d6427a384aec85da16a07386476c179",
+        "signature": "000e4db713293ac4e2973997a2020464afb38ba9db9c27c6fba806e4669b7ff4",
         "affectsGlobalScope": false
       },
       "../../../node_modules/@types/color-name/index.d.ts": {
@@ -522,12 +531,29 @@
       "noImplicitReturns": true,
       "noFallthroughCasesInSwitch": true,
       "composite": true,
+      "incremental": true,
       "outDir": "./",
       "declarationDir": "..",
       "rootDir": "../../../lib",
       "configFilePath": "../../../lib/tsconfig.json"
     },
     "referencedMap": {
+      "../../../lib/public-api.ngtypecheck.ts": [
+        "../../../node_modules/@types/node/fs.d.ts",
+        "../../../node_modules/@types/node/ts3.2/fs.d.ts",
+        "../../../node_modules/@types/node/ts3.2/util.d.ts",
+        "../../../node_modules/@types/node/util.d.ts"
+      ],
+      "../../../lib/public-api.ts": [
+        "../../../lib/public-api.ngtypecheck.ts",
+        "../../../lib/src/foo-bax.component.ts",
+        "../../../lib/src/foo-bax.module.ts",
+        "../../../lib/src/foo-bax.service.ts",
+        "../../../node_modules/@types/node/fs.d.ts",
+        "../../../node_modules/@types/node/ts3.2/fs.d.ts",
+        "../../../node_modules/@types/node/ts3.2/util.d.ts",
+        "../../../node_modules/@types/node/util.d.ts"
+      ],
       "../../../lib/src/foo-bax.component.ngtypecheck.ts": [
         "../../../node_modules/@types/node/fs.d.ts",
         "../../../node_modules/@types/node/ts3.2/fs.d.ts",
@@ -1246,6 +1272,11 @@
       ]
     },
     "exportedModulesMap": {
+      "../../../lib/public-api.ts": [
+        "../../../lib/src/foo-bax.component.ts",
+        "../../../lib/src/foo-bax.module.ts",
+        "../../../lib/src/foo-bax.service.ts"
+      ],
       "../../../lib/src/foo-bax.component.ts": [
         "../../../node_modules/@angular/core/core.d.ts"
       ],
@@ -1924,6 +1955,8 @@
       ]
     },
     "semanticDiagnosticsPerFile": [
+      "../../../lib/public-api.ngtypecheck.ts",
+      "../../../lib/public-api.ts",
       "../../../lib/src/foo-bax.component.ngtypecheck.ts",
       "../../../lib/src/foo-bax.component.ts",
       "../../../lib/src/foo-bax.module.ngtypecheck.ts",

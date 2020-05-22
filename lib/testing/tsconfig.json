@@ -3,16 +3,16 @@
     "compilerOptions": {
         "outDir": "../../dist/core/esm2015/testing",
         "declarationDir": "../../dist/core/testing",
-        "rootDir": ".",
+        "rootDir": "./",
         "baseUrl": ".",
         "paths": {
           "core": [
-            "../public-api.ts"
+            "../../dist/core/public-api.d.ts"
           ]
         }
     },
     "include": [
-      "public_api.ts",
+      "public-api.ts",
       "src/**/*.ts"
     ],
     "references": [
