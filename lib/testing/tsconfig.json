@@ -1,0 +1,23 @@
+{
+    "extends": "../../tsconfig-base.json",
+    "compilerOptions": {
+        "outDir": "../../dist/core/esm2015/testing",
+        "declarationDir": "../../dist/core/testing",
+        "rootDir": ".",
+        "baseUrl": ".",
+        "paths": {
+          "core": [
+            "../public-api.ts"
+          ]
+        }
+    },
+    "include": [
+      "public_api.ts",
+      "src/**/*.ts"
+    ],
+    "references": [
+        {
+            "path": "../"
+        },
+    ]
+}

@@ -1,0 +1,16 @@
+{
+    "compilerOptions": {
+        "declaration": true,
+        "target": "esnext",
+        "module": "esnext",
+        "moduleResolution": "Node",
+        "strict": true,
+        "skipLibCheck": true,
+        "experimentalDecorators": true,
+        "noUnusedLocals": true,
+        "noUnusedParameters": true,
+        "noImplicitReturns": true,
+        "noFallthroughCasesInSwitch": true,
+        "composite": true,
+    }
+}
