@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'lib-foo-bax',
   template: `
     <p>
-      foo-bax works!
+      foo-bax works!!
     </p>
   `,
   styles: [
@@ -12,6 +12,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FooBaxComponent implements OnInit {
 
+  @Input() name = '';
   constructor() { }
 
   ngOnInit(): void {

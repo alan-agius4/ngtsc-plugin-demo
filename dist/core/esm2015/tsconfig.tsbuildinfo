@@ -244,8 +244,8 @@
         "affectsGlobalScope": false
       },
       "../../../lib/src/foo-bax.component.ts": {
-        "version": "4ebd0f9091daa0a1bbd2f6ce6f5ec358ecdab177d17916d1507331c63bbc89eb",
-        "signature": "3696dc802de1c101ed5877aa2299a16488b70907dadcd0d98baaf75fe638438f",
+        "version": "710d9b3b513e98a05e883928feaaa5263fbb41371d3fd472a0c88efefa1438ca",
+        "signature": "b644513d3098a4296dffe338e2a0883e791f402a6a06e67e88f3f2984f1a72bd",
         "affectsGlobalScope": false
       },
       "../../../lib/src/foo-bax.module.ngtypecheck.ts": {
@@ -531,6 +531,7 @@
       "noImplicitReturns": true,
       "noFallthroughCasesInSwitch": true,
       "composite": true,
+      "pretty": true,
       "incremental": true,
       "outDir": "./",
       "declarationDir": "..",

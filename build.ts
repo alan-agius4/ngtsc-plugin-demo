@@ -1,83 +1,11 @@
-// import * as ts from 'typescript';
-// import { NgTscPlugin, readConfiguration } from '@angular/compiler-cli';
-// import { resolve } from 'path';
-// import { createHash } from 'crypto';
-
-// const config = readConfiguration(resolve('tsconfig.json'))
-// const compilerOptions = config.options;
-
-// console.time('NgTscPlugin')
-// const ngtsc = new NgTscPlugin(compilerOptions)
-// console.timeEnd('NgTscPlugin')
-
-// console.time('createIncrementalCompilerHost')
-// const host = ts.createIncrementalCompilerHost(compilerOptions);
-// console.timeEnd('createIncrementalCompilerHost')
-
-// // UnifiedModeHost is required in wrapHost type but optional in ngtsc CompilerHost
-// //const wrappedHost = host;
-// const wrappedHost = ngtsc.wrapHost(host as any, config.rootNames, compilerOptions)
-
-// augmentHostWithVersioning(wrappedHost)
-
-// console.time('createIncrementalProgram')
-// //const oldProgram = ngtsc.getNextProgram();
-// const program = ts.createIncrementalProgram({
-//     options: compilerOptions,
-//     rootNames: config.rootNames,
-//     host: wrappedHost,
-// });
-
-// console.timeEnd('createIncrementalProgram')
-// console.time('setupCompilation')
-// ngtsc.setupCompilation(program.getProgram(), undefined);
-// console.timeEnd('setupCompilation')
-
-// const builder = program
-// console.time('diagnostics')
-// const diagnostics = [
-//     ...ngtsc.getDiagnostics(),
-//     ...ngtsc.getOptionDiagnostics(),
-//     ...builder.getOptionsDiagnostics(),
-//     ...builder.getGlobalDiagnostics(),
-//     ...builder.getSyntacticDiagnostics(),
-//     ...builder.getSemanticDiagnostics(),
-// ];
-
-// const formatHost: ts.FormatDiagnosticsHost = {
-//     getCanonicalFileName: path => path,
-//     getCurrentDirectory: ts.sys.getCurrentDirectory,
-//     getNewLine: () => ts.sys.newLine
-// };
-// console.warn(diagnostics.map(d => ts.formatDiagnostic(d, formatHost)).join('\n'));
-// console.timeEnd('diagnostics')
-
-// console.time('emit')
-// builder.emit();
-// console.timeEnd('emit')
-
-// function augmentHostWithVersioning(host: ts.CompilerHost): void {
-//     const baseGetSourceFile = host.getSourceFile;
-//     host.getSourceFile = function (...parameters) {
-//         const file = baseGetSourceFile.call(host, ...parameters) as any;
-//         if (file && file.version === undefined) {
-//             file.version = createHash('sha256').update(file.text).digest('hex');
-//         }
-
-//         return file;
-//     };
-// }
-
-
 import * as ts from "typescript";
 import * as path from 'path';
 import { NgTscPlugin, readConfiguration } from '@angular/compiler-cli';
 import { createHash } from "crypto";
 
-
 function createProgram(
-  rootNames: ReadonlyArray<string> | undefined,
-  options?: ts.CompilerOptions,
+  rootNames: ReadonlyArray<string> | undefined = [],
+  options: ts.CompilerOptions = {},
   host?: ts.CompilerHost,
   oldProgram?: ts.EmitAndSemanticDiagnosticsBuilderProgram,
   configFileParsingDiagnostics?: readonly ts.Diagnostic[],
@@ -86,32 +14,41 @@ function createProgram(
   console.log("** We're about to create the program! **");
 
   console.time('NgTscPlugin')
-  const ngtsc = new NgTscPlugin(options || {})
+  const ngtsc = new NgTscPlugin(options);
   console.timeEnd('NgTscPlugin')
 
-  const wrappedHost = ngtsc.wrapHost(host as any, rootNames || [], options || {})
-  augmentHostWithVersioning(wrappedHost);
+  const wrappedHost = ngtsc.wrapHost(host as any, rootNames, options);
+
+  const getSourceFile = wrappedHost.getSourceFile;
+  wrappedHost.getSourceFile = (...parameters) => {
+    const file = getSourceFile.call(wrappedHost, ...parameters) as ts.SourceFile & { version: string};
+    if (file && !file.version) {
+      file.version = createHash('sha256').update(file.text).digest('hex');
+    }
+
+    return file;
+  };
 
   console.time('createEmitAndSemanticDiagnosticsBuilderProgram')
   const program = ts.createEmitAndSemanticDiagnosticsBuilderProgram(rootNames, options, wrappedHost, oldProgram, configFileParsingDiagnostics, projectReferences);
   console.timeEnd('createEmitAndSemanticDiagnosticsBuilderProgram')
 
-  
+
   console.time('setupCompilation')
   ngtsc.setupCompilation(program.getProgram(), undefined);
   console.timeEnd('setupCompilation')
 
   const getSyntacticDiagnostics = program.getSyntacticDiagnostics;
-  program.getSyntacticDiagnostics = function (sf: ts.SourceFile, token: ts.CancellationToken) {
+  program.getSyntacticDiagnostics = (sf: ts.SourceFile, token: ts.CancellationToken) => {
     return [
-      ...getSyntacticDiagnostics(sf, token),
+      ...getSyntacticDiagnostics.call(program, sf, token),
       ...ngtsc.getDiagnostics(sf)
     ]
   }
 
   const emit = program.emit;
-  program.emit = function (targetSourceFile?: any, writeFile?: any, cancellationToken?: any, emitOnlyDtsFiles?: any, customTransformers?: any) {
-    return emit(targetSourceFile, writeFile, cancellationToken, emitOnlyDtsFiles, ngtsc.compiler.prepareEmit().transformers)
+  program.emit = (targetSourceFile?: any, writeFile?: any, cancellationToken?: any, emitOnlyDtsFiles?: any, customTransformers?: any) => {
+    return emit.call(program, targetSourceFile, writeFile, cancellationToken, emitOnlyDtsFiles, ngtsc.compiler.prepareEmit().transformers)
   }
   return program;
 };
@@ -192,34 +129,13 @@ function reportWatchStatus(diagnostic: ts.Diagnostic) {
 }
 
 function getTextForDiagnostic(diagnostic: ts.Diagnostic): string {
-  if (diagnostic.file) {
-    const { line, character } = diagnostic.file.getLineAndCharacterOfPosition(
-      diagnostic.start!
-    );
-    const message = ts.flattenDiagnosticMessageText(
-      diagnostic.messageText,
-      "\n"
-    );
-    return `${diagnostic.file.fileName} (${line + 1},${character + 1}): ${message}`;
-  } else {
-    return `${ts.flattenDiagnosticMessageText(diagnostic.messageText, "\n")}`;
-  }
+  const formatHost: ts.FormatDiagnosticsHost = {
+    getCanonicalFileName: path => path,
+    getCurrentDirectory: ts.sys.getCurrentDirectory,
+    getNewLine: () => ts.sys.newLine
+  };
+
+  return ts.formatDiagnosticsWithColorAndContext([diagnostic], formatHost);
 }
 
-// To compile solution similar to tsc --b
-//compileSolution({ verbose: true });
-
-// To compile solution and watch changes similar to tsc --b --w
 compileSolutionWithWatch({ verbose: true });
-
-function augmentHostWithVersioning(host: ts.CompilerHost): void {
-    const baseGetSourceFile = host.getSourceFile;
-    host.getSourceFile = function (...parameters) {
-        const file = baseGetSourceFile.call(host, ...parameters) as any;
-        if (file && file.version === undefined) {
-            file.version = createHash('sha256').update(file.text).digest('hex');
-        }
-
-        return file;
-    };
-}

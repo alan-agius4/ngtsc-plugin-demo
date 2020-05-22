@@ -11,4 +11,3 @@ import {FooBaxModule as FooBaxModule2} from 'core';
   exports: [FooBaxComponent]
 })
 export class FooBaxModule { }
-

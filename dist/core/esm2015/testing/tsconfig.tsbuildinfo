@@ -244,7 +244,7 @@
         "affectsGlobalScope": false
       },
       "../../../../lib/testing/src/foo-bax.component.ts": {
-        "version": "dfa7ccdb9d9d930edb42c8af9680318a8312518fc61be8c0acf961dad9939819",
+        "version": "2ca39565bbc9526b6609a4bca01a7a2fa272492faf173a66fd13d5a4b360cd02",
         "signature": "3696dc802de1c101ed5877aa2299a16488b70907dadcd0d98baaf75fe638438f",
         "affectsGlobalScope": false
       },
@@ -258,8 +258,8 @@
         "affectsGlobalScope": false
       },
       "../../src/foo-bax.component.d.ts": {
-        "version": "f050784fba060f17cbaa5ebdae0b234036eca1484d56db0d2b0d24e2e136ed78",
-        "signature": "f050784fba060f17cbaa5ebdae0b234036eca1484d56db0d2b0d24e2e136ed78",
+        "version": "3cc4d9ac2863b6b40e138a629389a7e262f55fc9e24b9f74d7851276594ea654",
+        "signature": "3cc4d9ac2863b6b40e138a629389a7e262f55fc9e24b9f74d7851276594ea654",
         "affectsGlobalScope": false
       },
       "../../src/foo-bax.module.d.ts": {
@@ -273,7 +273,7 @@
         "affectsGlobalScope": false
       },
       "../../../../lib/testing/src/foo-bax.module.ts": {
-        "version": "221d5650bfb87d5040e16d37868414dd745c83104396969c3c8263f32db60bcb",
+        "version": "a77be473f3c0ac41f04a8701b3545214a909ee56851c4ca8ab089337d32e3e58",
         "signature": "ace1b1b58d6454a5f7562d1c83d8cb0d1aac459d94a525b4a811754923e64f2e",
         "affectsGlobalScope": false
       },
@@ -551,6 +551,7 @@
       "noImplicitReturns": true,
       "noFallthroughCasesInSwitch": true,
       "composite": true,
+      "pretty": true,
       "incremental": true,
       "outDir": "./",
       "declarationDir": "../../testing",

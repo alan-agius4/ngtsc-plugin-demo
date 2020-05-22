@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
   selector: 'lib-foo-bax',
   template: `
     <p>
+      <lib-foo-bax [name]=""></lib-foo-bax>
       foo-bax testing works!
     </p>
   `,

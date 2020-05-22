@@ -12,6 +12,7 @@
         "noImplicitReturns": true,
         "noFallthroughCasesInSwitch": true,
         "composite": true,
+        "pretty": true,
         "incremental": true,
     }
 }
