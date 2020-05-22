@@ -1,6 +1,6 @@
 import * as ts from "typescript";
 import * as path from 'path';
-import { NgTscPlugin, readConfiguration } from '@angular/compiler-cli';
+import { NgTscPlugin } from '@angular/compiler-cli';
 import { createHash } from "crypto";
 
 function createProgram(
@@ -53,45 +53,12 @@ function createProgram(
   return program;
 };
 
-
-/**
- * To compile solution similar to tsc --b
- */
-function compileSolution(options: ts.BuildOptions): void {
-  const host = ts.createSolutionBuilderHost(
-    // System like host, default is ts.sys
-    /*system*/ undefined,
-    // createProgram can be passed in here to choose strategy for incremental compiler just like when creating incremental watcher program.
-    // Default is ts.createSemanticDiagnosticsBuilderProgram
-    createProgram,
-    reportDiagnostic,
-    reportSolutionBuilderStatus,
-    reportErrorSummary
-  );
-
-
-  const solution = ts.createSolutionBuilder(
-    host,
-    [tsconfig],
-    options
-  );
-
-  // Builds the solution
-  const exitCode = solution.build();
-  console.log(`Process exiting with code '${exitCode}'.`);
-  process.exit(exitCode);
-}
-
-const tsconfig = path.resolve('tsconfig.json');
 /**
  * To compile solution and watch changes similar to tsc --b --w
  */
 function compileSolutionWithWatch(options: ts.BuildOptions): void {
   const host = ts.createSolutionBuilderWithWatchHost(
-    // System like host, default is ts.sys
-    /*system*/ undefined,
-    // createProgram can be passed in here to choose strategy for incremental compiler just like when creating incremental watcher program.
-    // Default is ts.createSemanticDiagnosticsBuilderProgram
+    undefined,
     createProgram,
     reportDiagnostic,
     reportSolutionBuilderStatus,
@@ -100,12 +67,12 @@ function compileSolutionWithWatch(options: ts.BuildOptions): void {
 
   const solution = ts.createSolutionBuilderWithWatch(
     host,
-    [tsconfig],
+    [path.resolve('tsconfig.json')],
     options
   );
 
   // Builds the solution and watches for changes
-  solution.build()
+  solution.build();
 }
 
 // Reports error
@@ -116,11 +83,6 @@ function reportDiagnostic(diagnostic: ts.Diagnostic) {
 // Reports status like Project needs to be built because output file doesnot exist
 function reportSolutionBuilderStatus(diagnostic: ts.Diagnostic) {
   console.info(getTextForDiagnostic(diagnostic));
-}
-
-// Reports summary with number of errors
-function reportErrorSummary(errorCount: number) {
-  console.info(`${errorCount} found.`);
 }
 
 // Report status of watch like Starting compilation, Compilation completed etc

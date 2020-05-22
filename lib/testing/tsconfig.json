@@ -1,7 +1,7 @@
 {
     "extends": "../../tsconfig-base.json",
     "compilerOptions": {
-        "outDir": "../../dist/core/esm2015/testing",
+        "outDir": "../../dist/core/testing",
         "declarationDir": "../../dist/core/testing",
         "rootDir": "./",
         "baseUrl": ".",
