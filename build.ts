@@ -53,7 +53,7 @@ console.warn(diagnostics.map(d => ts.formatDiagnostic(d, formatHost)).join('\n')
 console.timeEnd('diagnostics')
 
 console.time('emit')
-builder.emit();
+builder.emit(undefined, undefined, undefined, undefined, ngtsc.compiler.prepareEmit().transformers)
 console.timeEnd('emit')
 
 function augmentHostWithVersioning(host: ts.CompilerHost): void {

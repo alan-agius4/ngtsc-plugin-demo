@@ -163,7 +163,6 @@
       },
       "../src/index.ngtypecheck.ts": {
         "version": "ddd578018a259d1c494c834bdd8707769d07d1eb64f87f5217560cd2181b9e93",
-        "signature": "da14a67372982ca6e605fea114900b492b3316618581634e0ce72afbcb09baca",
         "affectsGlobalScope": false
       },
       "../src/index.ts": {
