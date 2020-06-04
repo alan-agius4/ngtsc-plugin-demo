@@ -16,9 +16,9 @@ const host = ts.createCompilerHost(compilerOptions);
 const wrappedHost = ngtsc.wrapHost(host as any, config.rootNames, compilerOptions)
 
 const program = ts.createProgram({
-    options: compilerOptions,
-    rootNames: config.rootNames,
-    host: wrappedHost,
+  options: compilerOptions,
+  rootNames: config.rootNames,
+  host: wrappedHost,
 });
 console.time('setupCompilation')
 const { ignoreForEmit } = ngtsc.setupCompilation(program, undefined);
@@ -26,22 +26,29 @@ console.timeEnd('setupCompilation')
 
 console.time('diagnostics')
 const diagnostics = [
-    ...ngtsc.getDiagnostics(),
-    ...ngtsc.getOptionDiagnostics(),
-    ...program.getOptionsDiagnostics(),
-    ...program.getGlobalDiagnostics(),
-    ...program.getSyntacticDiagnostics(),
-    ...program.getSemanticDiagnostics(),
+  ...ngtsc.getDiagnostics(),
+  ...ngtsc.getOptionDiagnostics(),
+  ...program.getOptionsDiagnostics(),
+  ...program.getGlobalDiagnostics(),
+  ...program.getSyntacticDiagnostics(),
+  ...program.getSemanticDiagnostics(),
 ];
 
 const formatHost: ts.FormatDiagnosticsHost = {
-    getCanonicalFileName: path => path,
-    getCurrentDirectory: ts.sys.getCurrentDirectory,
-    getNewLine: () => ts.sys.newLine
+  getCanonicalFileName: path => path,
+  getCurrentDirectory: ts.sys.getCurrentDirectory,
+  getNewLine: () => ts.sys.newLine
 };
 console.warn(diagnostics.map(d => ts.formatDiagnostic(d, formatHost)).join('\n'));
 console.timeEnd('diagnostics')
 
 console.time('emit')
-program.emit(undefined, undefined, undefined, undefined, ngtsc.compiler.prepareEmit().transformers)
+
+for (const sf of program.getSourceFiles()) {
+  if (ignoreForEmit.has(sf)) {
+    continue;
+  }
+
+  program.emit(sf, undefined, undefined, undefined, ngtsc.compiler.prepareEmit().transformers)
+}
 console.timeEnd('emit')
